@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 소요 시간 : 1시간
+// 소요 시간 : 45분
 
 int main() {
 	int ppl[9] = { 0 };
