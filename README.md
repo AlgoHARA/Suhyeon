@@ -188,8 +188,12 @@ q.empty(); // priority queue 비어있는가(T/F)
 
 ### algorithm header
 정렬/순열 등을 사용할 때, vector container과 함께 사용되는 경우가 많다
-- 최소값 : min(1,3); // 1
-- 최대값 : max(1, 6); // 6
+- 최소값 : min
+  - min(1,3); // 1
+  - vector v에서, min_element(v.begin(), v.end())는 iterator 반환, *min_element로 값 접근
+- 최대값
+  - max(1, 6); // 6
+  - vector v에서, max_element(v.begin(), v.end())는 iterator 반환, *max_element로 값 접근
 - 정렬 : sort(iterator-begin, iterator-end, 비교함수)
   - default는 오름차순 정렬
   - 내림차순 정렬하려면, <functional> 헤더의 greater<int>()를 사용해야 한다
