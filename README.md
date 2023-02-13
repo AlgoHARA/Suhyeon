@@ -126,7 +126,7 @@ q.empty(); // 큐가 비어있는가(T/F)
 ### Stack
 LIFO
 
-```C+
+```C++
 #include <stack>
 
 stack<int> s;
@@ -142,7 +142,7 @@ s.empty(); // 스택이 비어있는가(T/F)
 - key라 불리는 원소들의 집합
 - key값은 중복 허용 X
 
-```C+
+```C++
 #include <set>
 
 set<int> s;
@@ -160,7 +160,7 @@ s.empty(); // set이 비어있는가
 - key값 중복 허용 x
 - [] 연산자가 제공되어 key에 해당하는 원소의 value에 바로 접근 가능
 
-```C+
+```C++
 #include <map>
 
 map<char, int> m;
@@ -175,15 +175,22 @@ m['a'] = 1;
 ```
 
 ### Priority queue
-```C+
+- priority_queue<자료형, 컨테이너, 우선순위> 변수명
+  - 컨테이너: 생략 시 default 컨테이너는 vector
+  - 우선순위: 생략 시 default 우선순위는 less<자료형>
+  - priority_queue<int> q; // 자료형은 정수, 우선순위를 내림차순 정렬(가장 큰 정수가 top에 위치)
+  - priority_queue<int, deque<int>> q; // 자료형은 정수, 컨테이너는 덱
+```C++
 #include <queue>
 
-priority_queue<int, vector<int>, less<int>> q;
-q.push(); // top에 데이터 추가
-q.pop(); // top에서 데이터 제거
-q.top(); // top에 있는 원소
-q.size(); // priority queue의 크기
-q.empty(); // priority queue 비어있는가(T/F)
+priority_queue<int, vector<int>, less<int>> q; // 우선순위를 내림차순 정렬 (최대 힙)
+priority_queue<int, vector<int>, greater<int>> pq; // 우선순위를 오름차순 정렬 (최소 힙)
+
+q.push(); // q에 원소를 추가
+q.pop(); // q에서 우선순위가 가장 높은 원소를 제거 -> 두 번째로 큰 정수가 top에 위치하게 됨
+q.top(); // q에서 우선순위가 가장 높은 원소
+q.size(); // q의 원소 개수
+q.empty(); // q 비어있는가(T/F)
 ```
 
 ### algorithm header
