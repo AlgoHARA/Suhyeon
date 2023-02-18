@@ -92,7 +92,9 @@ C의 array는 크기가 정적이라 크기 변경 불가.
 #include <vector>
 
 vector<int> a = {1, 2, 3};
-vector<int> b(10); // 0으로 초기화된 vector 10개 생성
+vector<int> b(10); // 기본값(0)으로 초기화된 원소 10개의 vector 생성
+vector<int> c(5, 2); // 2로 초기화된 원소 5개의 vector 생성
+vector<int> d(a); // a를 복사한(얕은 복사) vector d 생성
 vector<int>::iterator it;
 
 a.front(); // 첫 번째 원소
