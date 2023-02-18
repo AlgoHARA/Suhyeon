@@ -78,4 +78,51 @@ bool isPrime(int n) {
 }
 ```
 
-## ??
+## DFS
+- 스택 이용 or 재귀 함수 로 구현할 수 있다
+#### 스택을 이용한 방법
+- 프로그래머스 '전력망을 둘로 나누기' 문제 풀이
+- 인접 리스트를 이용한 방식: input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
+```C++
+int dfs(
+    int start, // 탐색을 시작할 root node
+    vector<vector<int>> input) // 노드들 간의 연결 정보가 저장된 2차원 vector
+{
+    int size = input.size(); // 몇 번째 노드까지 있는가 (1~9번 노드가 있으면 10개의 원소를 갖는 input을 선언했다)
+    vector<bool> visited(size, false); // 방문 여부를 체크
+    stack<int> s;
+    int cnt = 1; // 일반 dfs는 없어도 됨, start와 연결된 노드가 몇 개인지 센다, 일단 start가 하나 있으므로 1부터 시작
+    
+    s.push(start);
+    visited[start] = true;
+    
+    while (!s.empty()) {
+        
+        // 스택에서 하나를 꺼낸다
+        int cur = s.top();
+        s.pop();
+        
+        // cur과 인접한 노드들 중
+        for (int a = 0; a < input[cur].size(); a++) {
+            
+            int next = input[cur][a];
+            
+            // next를 아직 방문 안 했다면 방문하자
+            if (!visited[next]) { // 'next != b &&' 같은 조건을 추가하면 cur과 b가 연결된 경우는 제외하고 탐색할 수 있다
+                //printf("%d ", next); // 방문 순서를 알 수 있다
+                visited[next] = true;
+                cnt++;
+                
+                // cur을 pop()했었기 때문에 cur도 넣어줘야 한다
+                s.push(cur);
+                s.push(next);
+                break;
+            }
+        }
+    }
+    
+    return cnt;
+}
+```
+
+## BFS
