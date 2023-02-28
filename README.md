@@ -106,8 +106,11 @@ a.pop_back(); // 마지막에서 데이터 제거
 a.size(); // 원소의 개수
 a.clear(); // 비우기
 a.swap(b); // 0으로 초기화된 b와 a를 교체
-a.erase(a.begin()); // → 첫번째 원소 제거
-a.reverse(a.begin(), a.end()); // → string도 reverse가 된
+a.reverse(a.begin(), a.end()); // → string도 reverse가 된다
+
+a.erase(a.begin() + 2); // 2번째 원소 제거, 인자 = iterator
+a.erase(a.begin(), a.begin() + 2); // 1번째 ~ 2번째 원소 제거
+a.find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
 
 ### Queue
@@ -166,7 +169,7 @@ s.empty(); // set이 비어있는가
 #include <map>
 
 map<char, int> m;
-m.insert(make_pair('a', 1); // key와 value의 pair로 원소를 삽입
+m.insert(make_pair('a', 1)); // key와 value의 pair로 원소를 삽입
 m.erase(k); // key값이 k인 원소를 삭제
 m.begin(); // 첫 번째 원소를 가리키는 iterator를 반환
 m.end(); // 마지막 원소를 가리키는 iterator를 반환
