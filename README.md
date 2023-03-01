@@ -49,16 +49,31 @@ f = 1.23456f; // f가 붙어야 float로 인식
 ```
 
 ## 입출력
+1) 동기화를 끊는다면 C++ stream은 C stream과는 다른 독립적인 버퍼를 갖게 된다.  
+그래서 출력 순서가 보장되지 않아서, C와 C++의 입출력 방식 혼용하여 쓰는 것이 위험하다.  
+2) untie시, cin으로 입력 받기 전 뭔가를 띄우고 싶다면, 매번 수동적으로 cout을 flush 시켜줘야 한다.  
 ```C++
-#inlcude <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
+#include <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
 #include <iostream>
 using namespace std;
 
 scanf();
 printf();
 cin >> temp;
-cout << "Hello" << temp << endl;
+cout << "Hello" << temp << "\n";
+
+ios::sync_with_stdio(false); // 1
+cin.tie(NULL); // 2
+cout.tie(NULL);
 ```
+
+## 메모리 초기화
+````C++
+#include <cstring>
+
+bool visited[10];
+memset(visited, false, sizeof(visited));
+````
 
 ## STL
 
@@ -66,7 +81,7 @@ cout << "Hello" << temp << endl;
 utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함돼서 utility는 include 안 해도 된다.
 
 ```C++
-#inlcude <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
+#include <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
 #include <iostream>
 #include <vector>
 using namespace std;
