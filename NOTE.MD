@@ -171,3 +171,8 @@ for (it = vec.begin(); it != vec.end(); ) {
     }
 }
 ```
+
+## char <-> int
+#### ASCII Code (아스키 코드)
+<img src="https://user-images.githubusercontent.com/66207354/222041073-32d33e2c-ed57-4284-886b-89593d8fe6ea.png" width="60%" height="">
+'0' = 48 / 'A' = 65 / 'a' = 97    
