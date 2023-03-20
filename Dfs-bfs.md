@@ -12,7 +12,7 @@
 - 재귀적으로 구현 or 스택 이용
 - BFS처럼 visited[] 배열이 필요하다
 
-### 1. 재귀 + 인접 리스트
+### 1. 재귀 + adjacency list
 - input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
 ````C++
 bool visited[9]; // 0~8번 노드가 방문됐는지 표시
@@ -59,7 +59,10 @@ int dfs(int y, int x) {
 }
 ````
 
-### 3. dfs + 재귀 → 순열 구하기
+### 3. 재귀 + adjacency matrix
+- [2-친구](https://www.acmicpc.net/problem/1058)
+
+### 4. dfs + 재귀 → 순열 구하기
 - [1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
 - [차이] 수열 vs 조합
 	- result 배열
@@ -73,7 +76,8 @@ int dfs(int y, int x) {
 	- 원소 n개 : dfs()에 인자로 주어진 cnt가 n에 도달하면 그때마다 결과 출력
 	- 가능한 모든 : 위와 같은 조건 필요 X, 새 원소가 추가될 때마다 결과 출력
 
-#### 3-1. 2개의 원소를 갖는 수열 구하기
+#### 4-1. 2개의 원소를 갖는 수열 구하기
+- [차이를 최대로](https://www.acmicpc.net/problem/10819)
 ````C++
 int n = 3; // v의 원소의 개수
 vector<int> v = { 0, 1, 2 };
@@ -122,7 +126,7 @@ int main() {
 */
 ````
 
-#### 3-2. 가능한 모든 수열 구하기
+#### 4-2. 가능한 모든 수열 구하기
 ````C++
 int n = 3; // v의 원소의 개수
 vector<int> v = { 0, 1, 2 };
@@ -177,14 +181,14 @@ int main() {
 */
 ````
 
-### 4. dfs + 재귀 → 조합 구하기
+### 5. dfs + 재귀 → 조합 구하기
 - [1 2 3]과 [1 3 2]를 같게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))<br>
 - v의 [0&#126;마지막번째]에서, [start&#126;마지막번째]의 원소를 조합의 cnt+1번째 원소로 넣어보겠다.<br>
     (start번째 앞의 원소들은 쳐다도 안 보겠다! 이미 고려했으니까..)<br>
 - 순서대로 visited[i]를 true로 표시하고, 원하는 원소 개수의 조합을 찾으면<br>
     print_combi()에서 visited[]에서 true인 원소만 출력한다.
     
-#### 4-1. 3개의 원소를 갖는 조합 만들기
+#### 5-1. 3개의 원소를 갖는 조합 만들기
 ````C++
 int n = 4; // v의 원소의 개수
 vector<int> v = { 0, 1, 2, 3 };
@@ -230,8 +234,8 @@ int main() {
 */
 ````
 
-#### 4-2. 가능한 모든 조합 만들기
-- 관련 문제 : [신맛/쓴맛 조합 문제](https://www.acmicpc.net/problem/2961)
+#### 5-2. 가능한 모든 조합 만들기
+- [신맛/쓴맛 조합 문제](https://www.acmicpc.net/problem/2961)
 - 위 코드와의 차이점 : 'print_combi()를 언제 하는가'
 - next_permutation() 쓸 때랑 결과가 비슷한 듯!
 
@@ -289,7 +293,7 @@ int main() {
 */
 ````
 
-### 5. 스택 + 인접 리스트
+### 6. 스택 + 인접 리스트
 - [전력망을 둘로 나누기](https://school.programmers.co.kr/learn/courses/30/lessons/86971?language=cpp) 풀이<br>
 
 ##### 주석 없는 버전
