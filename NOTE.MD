@@ -78,16 +78,185 @@ bool isPrime(int n) {
 }
 ```
 
-## DFS
-- 스택 이용 or 재귀 함수 로 구현할 수 있다
-#### 스택을 이용한 방법
-- 프로그래머스 '전력망을 둘로 나누기' 문제 풀이
-- 인접 리스트를 이용한 방식: input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
+## DFS (Depth-First Search)
+스택 이용 or 재귀 함수 로 구현할 수 있다
+
+### 문제 추천
+- [여행경로](https://school.programmers.co.kr/learn/courses/30/lessons/43164?language=cpp) : 기본 DFS/백트래킹 기초
+- [치즈](https://www.acmicpc.net/problem/2636) : [idea] 외부 공기 vs 내부 공기 구분, 외부 공기와 n개 이상 맞닿은 곳이 테두리
+- [아이템 줍기](https://school.programmers.co.kr/learn/courses/30/lessons/87694?language=cpp)
+- [idea] 좌표 2배로 뻥튀기 해서 bfs
+
+### 1. 재귀
+
+#### 인접 리스트
+````C++
+bool visited[9]; // 0~8번 노드가 방문됐는지 표시
+vector<int> graph[9]; // 0~8번 노드가 vector<int>를 가진다, 인접 리스트
+
+// start : 탐색을 시작할 root node
+void dfs(int start) {
+    visited[start] = true;
+    
+    for (int i = 0; i < graph[start].size(); i++) {
+        int next = v[start][i];
+        
+        if (!check[next]) { // 방문하지 않았다면 dfs() 호출
+            dfs(next);
+        }
+    }
+}
+````
+
+#### 2차원 배열 좌표 (대각선 기준 대칭인 인접 그래프랑은 다름)
+[영역 구하기](https://www.acmicpc.net/problem/2583) 문제풀이 참고 ([출처](https://code-kh-studio.tistory.com/27))
+````C++
+int dy[4] = {0, 0, 1, -1}; // [행] 동서남북
+int dx[4] = {1, -1, 0, 0}; // [열] 동서남북
+int arr[100][100] = { 0 };
+bool visited[100][100] = { false };
+
+int dfs(int y, int x) {
+    int cnt = 1;
+    
+    for (int i = 0; i < 4; i++) {
+        int ny = y + dy[i];
+        int nx = y + dx[i];
+        
+        if (ny < 0 || nx < 0 || ny > 99 || nx > 99) continue;
+        if (arr[ny][nx] == 0 || visited[ny][nx]) continue;
+        
+        visited[ny][nx] = true;
+        cnt += dfs(ny, nx);
+    }
+    
+    return cnt;
+}
+````
+
+#### dfs + 재귀 -> 순열 구하기
+[1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
+````C++
+vector<int> arr;
+vector<int> result;
+int visited[MAX];
+
+void print_permu() {
+    for (int i = 0; i < result.size(); i++) {
+        cout << result[i] << ' ';
+    }
+    cout << endl;
+}
+
+void dfs_permu(int cnt) {
+    if (cnt == 3) { // 찾으려는 개수
+        print_permu();
+        return;
+    }
+    
+    for (int i = 0; i < MAX; i++) {
+        if (visited[i]) continue;
+        visited[i] = true;
+        result.push_back(arr[i]);
+        dfs_permu(cnt + 1);
+        
+        result.pop_back();
+        visited[i] = false;
+    }
+}
+
+int main() {
+    dfs_permu(0);
+    return 0;
+}
+````
+
+#### dfs + 재귀 -> 조합 구하기
+[1 2 3]과 [1 3 2]를 같게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
+````C++
+vector<int> arr;
+int visited[MAX];
+
+// visited[]에서 true인 index의 arr에서의 값만 출력
+void print_combi() {
+    for (int i = 0; i < MAX; i++) {
+        if (visited[i] = true) {
+            cout << arr[i] << ' ';
+        }
+    }
+    cout << endl;
+}
+
+void dfs_combi(int idx, int cnt) {
+    if (cnt == 3) { // 찾으려는 개수
+        print_combi();
+        return;
+    }
+    
+    for (int i = idx; i < MAX; i++) {
+        if (visited[i]) continue;
+        visited[i] = true;
+        dfs_combi(i, cnt + 1);
+        visited[i] = false;
+    }
+}
+
+int main() {
+    dfs_combi(0, 0);
+    return 0;
+}
+````
+
+### 2. 스택
+
+#### 인접 리스트
+[전력망을 둘로 나누기](https://school.programmers.co.kr/learn/courses/30/lessons/86971?language=cpp)
+문제 풀이<br>
+input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
+
+##### 주석 없는 버전
 ```C++
-int dfs(
-    int start, // 탐색을 시작할 root node
-    vector<vector<int>> input) // 노드들 간의 연결 정보가 저장된 2차원 vector
-{
+vector<vector<int>> input;
+
+int dfs(int start) {
+    int size = input.size();
+    vector<bool> visited(size, false);
+    stack<int> s;
+    int cnt = 1; // 일반 dfs는 없어도 됨
+    
+    s.push(start);
+    visited[start] = true;
+    
+    while (!s.empty()) {
+        int cur = s.top();
+        s.pop();
+        
+        for (int a = 0; a < input[cur].size(); a++) {
+            int next = input[cur][a];
+            
+            if (!visited[next]) {
+                //printf("%d ", next);
+                visited[next] = true;
+                cnt++;
+                
+                s.push(cur);
+                s.push(next);
+                break;
+            }
+        }
+    }
+    
+    return cnt;
+}
+```
+
+##### 주석 있는 버전
+```C++
+vector<vector<int>> input; // 노드들 간의 연결 정보가 저장된 2차원 vector
+
+// start : 탐색을 시작할 root node
+int dfs(int start) {
+
     int size = input.size(); // 몇 번째 노드까지 있는가 (1~9번 노드가 있으면 10개의 원소를 갖는 input을 선언했다)
     vector<bool> visited(size, false); // 방문 여부를 체크
     stack<int> s;
@@ -125,7 +294,34 @@ int dfs(
 }
 ```
 
+
 ## BFS
+큐를 이용하여 구현
+
+#### 인접 리스트
+````C++
+bool visited[9]; // 0~8번 노드가 방문됐는지 표시
+vector<int> graph[9]; // 0~8번 노드가 vector<int>를 가진다, 인접 리스트
+queue<int> q;
+
+void bfs(int start) {
+    q.push(start);
+    visited[start] = true;
+    
+    while (!q.empty()) {
+        int cur = q.front();
+        q.pop();
+        
+        for (int i = 0; i < graph[cur].size(); i++) {
+            int next = graph[cur][i];
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+}
+````
 
 ## DP (Dynamic Programming)
 - idea
