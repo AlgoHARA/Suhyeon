@@ -10,7 +10,7 @@
 
 ## DFS (Depth-First Search)
 - 재귀적으로 구현 or 스택 이용
-- BFS처럼 visited[] 배열이 다요하다
+- BFS처럼 visited[] 배열이 필요하다
 
 ### 1. 재귀 + 인접 리스트
 - input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
@@ -60,40 +60,121 @@ int dfs(int y, int x) {
 ````
 
 ### 3. dfs + 재귀 → 순열 구하기
-[1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
+- [1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
+- [차이] 수열 vs 조합
+	- result 배열
+		- 수열 구할 땐 순서가 중요하니 visited[] 외에<br>
+		원소를 push_back, pop_back할 vector<int> result가 필요하다
+		- 조합 구할 땐 순서가 안 중요하니 visited[]에 t/f 표시하는 것으로 충분
+	- for문에서 i가 0부터 도는지, start부터 도는지
+		- 수열 구할 땐 순서가 중요하니 무조건 0번째 원소부터 고려
+		- 조합 구할 땐 중복 생기면 안 되니 start번째 원소부터 고려
+- [차이] 원소 n개 vs 가능한 모든
+	- 원소 n개 : dfs()에 인자로 주어진 cnt가 n에 도달하면 그때마다 결과 출력
+	- 가능한 모든 : 위와 같은 조건 필요 X, 새 원소가 추가될 때마다 결과 출력
+
+#### 3-1. 2개의 원소를 갖는 수열 구하기
 ````C++
-vector<int> arr;
+int n = 3; // v의 원소의 개수
+vector<int> v = { 0, 1, 2 };
 vector<int> result;
-int visited[MAX];
+bool visited[3] = { false };
 
 void print_permu() {
-    for (int i = 0; i < result.size(); i++) {
-        cout << result[i] << ' ';
-    }
-    cout << endl;
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << "\n";
+	return;
 }
 
 void dfs_permu(int cnt) {
-    if (cnt == 3) { // 찾으려는 개수
-        print_permu();
-        return;
-    }
-    
-    for (int i = 0; i < MAX; i++) {
-        if (visited[i]) continue;
-        visited[i] = true;
-        result.push_back(arr[i]);
-        dfs_permu(cnt + 1);
-        
-        result.pop_back();
-        visited[i] = false;
-    }
+	if (cnt == 2) { // 찾으려는 개수
+		print_permu();
+		return;
+	}
+
+	for (int i = 0; i < n; i++) {
+		if (visited[i]) continue;
+		visited[i] = true;
+		result.push_back(v[i]);
+		dfs_permu(cnt + 1);
+
+		result.pop_back();
+		visited[i] = false;
+	}
+
+	return;
 }
 
 int main() {
-    dfs_permu(0);
-    return 0;
+	dfs_permu(0);
+	return 0;
 }
+
+/*
+0 1
+0 2
+1 0
+1 2
+2 0
+2 1
+*/
+````
+
+#### 3-2. 가능한 모든 수열 구하기
+````C++
+int n = 3; // v의 원소의 개수
+vector<int> v = { 0, 1, 2 };
+vector<int> result;
+bool visited[3] = { false };
+
+void print_permu() {
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << ' ';
+	}
+	cout << "\n";
+	return;
+}
+
+void dfs_permu(int cnt) {
+
+	for (int i = 0; i < n; i++) {
+		if (visited[i]) continue;
+		visited[i] = true;
+		result.push_back(v[i]);
+		print_permu();
+		dfs_permu(cnt + 1);
+
+		result.pop_back();
+		visited[i] = false;
+	}
+
+	return;
+}
+
+int main() {
+	dfs_permu(0);
+	return 0;
+}
+
+/*
+0
+0 1
+0 1 2
+0 2
+0 2 1
+1
+1 0
+1 0 2
+1 2
+1 2 0
+2
+2 0
+2 0 1
+2 1
+2 1 0
+*/
 ````
 
 ### 4. dfs + 재귀 → 조합 구하기
@@ -115,8 +196,7 @@ void print_combi() {
 			cout << v[i] << ' ';
 		}
 	}
-	cout << "\n-------------------\n";
-
+	cout << "\n";
 	return;
 }
 
@@ -141,8 +221,14 @@ int main() {
 	dfs_combi(0, 0); // v[0]이 조합의 1번째 원소가 되는 조합을 구하러 가볼까~?
 	return 0;
 }
+
+/*
+0 1 2
+0 1 3
+0 2 3
+1 2 3
+*/
 ````
-<img src="https://user-images.githubusercontent.com/66207354/226278741-6f39db13-ce4b-4c0c-a951-3d1a66e4fa1f.png" width="30%">
 
 #### 4-2. 가능한 모든 조합 만들기
 - 관련 문제 : [신맛/쓴맛 조합 문제](https://www.acmicpc.net/problem/2961)
@@ -160,7 +246,7 @@ void print_combi() {
 			cout << v[i] << ' ';
 		}
 	}
-	cout << "\n------------------------------------\n";
+	cout << '\n';
 	return;
 }
 
@@ -169,7 +255,7 @@ void dfs_combi(int start, int cnt) {
 	for (int i = start; i < n; i++) {
 		if (visited[i]) continue;
 		visited[i] = true; // 이로써 (cnt+1)개의 원소를 가진 조합이 생겼다
-		printf("[start = %d, cnt = %d, i = %d]\n", start, cnt, i);
+		printf("[start = %d, cnt = %d, i = %d] ", start, cnt, i);
 		print_combi();
 
 		dfs_combi(i, cnt + 1);
@@ -183,8 +269,25 @@ int main() {
 	dfs_combi(0, 0);
 	return 0;
 }
+
+/*
+[start = 0, cnt = 0, i = 0] 0
+[start = 0, cnt = 1, i = 1] 0 1
+[start = 1, cnt = 2, i = 2] 0 1 2
+[start = 2, cnt = 3, i = 3] 0 1 2 3
+[start = 1, cnt = 2, i = 3] 0 1 3
+[start = 0, cnt = 1, i = 2] 0 2
+[start = 2, cnt = 2, i = 3] 0 2 3
+[start = 0, cnt = 1, i = 3] 0 3
+[start = 0, cnt = 0, i = 1] 1
+[start = 1, cnt = 1, i = 2] 1 2
+[start = 2, cnt = 2, i = 3] 1 2 3
+[start = 1, cnt = 1, i = 3] 1 3
+[start = 0, cnt = 0, i = 2] 2
+[start = 2, cnt = 1, i = 3] 2 3
+[start = 0, cnt = 0, i = 3] 3
+*/
 ````
-<img src="https://user-images.githubusercontent.com/66207354/226277787-c9514c80-4909-431e-bcd3-f40514cb7702.png" width="30%">
 
 ### 5. 스택 + 인접 리스트
 - [전력망을 둘로 나누기](https://school.programmers.co.kr/learn/courses/30/lessons/86971?language=cpp) 풀이<br>
@@ -272,7 +375,7 @@ int dfs(int start) {
 # BFS (Breath-First Search)
 큐를 이용
 
-### 1. 인접 리스트
+### 1. 큐 + 인접 리스트
 ````C++
 bool visited[9]; // 0~8번 노드가 방문됐는지 표시
 vector<int> graph[9]; // 0~8번 노드가 vector<int>를 가진다, 인접 리스트
