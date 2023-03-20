@@ -75,7 +75,7 @@ bool visited[10];
 memset(visited, false, sizeof(visited));
 ````
 
-## STL
+## STL (Standard Template Library)
 
 ### Pair
 utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함돼서 utility는 include 안 해도 된다.
@@ -100,8 +100,8 @@ int main(int argc, const char* argv[]) {
 ```
 
 ### Vector
-크기가 가변적인 배열.
-C의 array는 크기가 정적이라 크기 변경 불가.
+크기가 가변적인 배열<br>
+C의 array는 크기가 정적이라 크기 변경 불가<br>
 
 ```C++
 #include <vector>
@@ -129,7 +129,8 @@ a.find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator
 ```
 
 ### Queue
-FIFO, BFS에 매우 유용
+FIFO<br>
+BFS에 매우 유용
 
 ```C++
 #include <queue>
@@ -195,11 +196,12 @@ m['a'] = 1;
 ```
 
 ### Priority queue
-- priority_queue<자료형, 컨테이너, 우선순위> 변수명
+- 선언 format : priority_queue<자료형, 컨테이너, 우선순위> 변수명
   - 컨테이너: 생략 시 default 컨테이너는 vector
-  - 우선순위: 생략 시 default 우선순위는 less<자료형>
-  - priority_queue<int> q; // 자료형은 정수, 우선순위를 내림차순 정렬(가장 큰 정수가 top에 위치)
-  - priority_queue<int, deque<int>> q; // 자료형은 정수, 컨테이너는 덱
+  - 우선순위: 생략 시 default 우선순위는 less<자료형>  
+- priority_queue<int> q; // 자료형은 정수, 우선순위를 내림차순 정렬(가장 큰 정수가 top에 위치)
+- priority_queue<int, deque<int>> q; // 자료형은 정수, 컨테이너는 덱
+
 ```C++
 #include <queue>
 
@@ -213,24 +215,75 @@ q.size(); // q의 원소 개수
 q.empty(); // q 비어있는가(T/F)
 ```
 
-### algorithm header
+## algorithm header
 정렬/순열 등을 사용할 때, vector container과 함께 사용되는 경우가 많다
-- 최소값 : min
-  - min(1,3); // 1
-  - vector v에서, min_element(v.begin(), v.end())는 iterator 반환, *min_element로 값 접근
-- 최대값
-  - max(1, 6); // 6
-  - vector v에서, max_element(v.begin(), v.end())는 iterator 반환, *max_element로 값 접근
-- 정렬 : sort(iterator-begin, iterator-end, 비교함수)
-  - default는 오름차순 정렬
-  - 내림차순 정렬하려면, <functional> 헤더의 greater<int>()를 사용해야 한다
-  - vector를 오름차순 정렬 : sort(v.begin(), v.end());
-  - vector를 내림차순 정렬 : sort(v.begin(), v.end(), greater<int>());
-- 순열 : ????_permutation(iterator-begin, iterator-end)
-  - next_permutation : 현재 vector(or array)로 표현된 순열의 다음 순열을 구해준다
-  - prev_permutation : 현재 vector(or array))로 표현된 순열의 이전 순열을 구해준다
-  - 인자로 : container의 시작과 끝 iterator나, array의 주소값을 넣어준다
-  - 다음/이전 순열이 존재하면 true, 없으면 false 반환
-- 이분 탐색 : binary_search(iterator-begin, iterator-end, 찾으려는 value)
-    - 인자로 : container의 시작과 끝 iterator나, array의 주소값을 넣어준다
-    - container(또는 배열)에서 찾으려는 value가 존재하면 true, 없으면 false
+
+### 최소값 min
+````C++
+min(1, 3); // 1
+min_element(v.begin(), v.end()); // iterator 반환, *min_element로 값 접근
+````
+
+### 최대값 max
+````C++
+max(1, 6); // 6
+max_element(v.begin(), v.end()); // iterator 반환, *max_element로 값 접근
+````
+
+### 정렬 sort
+- sort(iterator-begin, iterator-end, 비교함수)
+- default : 오름차순 정렬
+- 내림차순 정렬 : <functional> 헤더의 greater<int>() 사용
+````C++
+#include <functional>
+
+// 1. 기본 사용법
+vector<int> v1;
+sort(v1.begin(), v1.end()); // default : 오름차순 정렬
+sort(v1.begin(), v1.end(), greater<int>()); // 내림차순 정렬
+
+// 2. 비교 함수 재정의
+bool compare(const pair<int, int>& a, const pair<int, int>& b) {
+  if (a.first == b.first) // first가 같다면
+    return a.second < b.second; // second로 오름차순
+  return a.first < b.first; // first가 더 작은 게 앞으로 -> 오름차순
+}
+
+vector<pair<int, int>> v2;
+sort(v2.begin(), v2.end(), compare);
+
+// 3. 람다 표현식(익명 함수) 사용
+// 람다 표현식 기본 format : [캡처절] (매개변수) -> 반환형식 { 함수내용 }
+vecotr<int> v3;
+sort(v3.begin(), v3.end(), [](int& a, int& b) {return a > b;});
+````
+
+### 순열 permutation
+```` C++
+vector<int> v;
+next_permutation(v.begin(), v.end());
+prev_permutation(v.begin(), v.end());
+````
+- 인자로: container의 begin/end iterator나, array의 주소값을 넣어준다
+- 다음/이전 순열이 존재하면 true, 없으면 false 반환
+- 용례는 NOTE.MD 참고!
+
+### 이분 탐색 binary_search
+````C++
+vector<int> v;
+binary_search(v.begin(), v.end(), 3); // 값 '3'이 존재하는지 찾는다
+````
+- 인자로: container의 begin/end iterator나, array의 주소값을 넣어준다
+- container(또는 배열)에서 찾으려는 value가 존재하면 true, 없으면 false 반환
+
+### 중복 원소 찾기 unique
+````C++
+vector<int> v;
+// 중복 원소를 찾아 (중복을) 전부 제거하기
+sort(v.begin(), v.end());
+v.erase(unique(v.begin(), v.end()), v.end());
+````
+- 중복 원소를 찾거나, 찾아서 제거할 때 사용된다
+- unique()는 연속된 중복 원소를 vector의 제일 뒷부분으로, 쓰레기값으로 보내버린다.
+- unique()는 vector에서 쓰레기값의 첫 번째 인덱스를 반환
+- 따라서 반드시 sort()로 정렬 후 unique()를 사용해야 한다
