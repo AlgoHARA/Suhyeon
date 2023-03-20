@@ -75,6 +75,24 @@ bool visited[10];
 memset(visited, false, sizeof(visited));
 ````
 
+## 문자열 가지고 놀기
+````C++
+#include <string>
+
+string a = "0123456789abcdefg";
+cout << a.substr(10); // abcdefg
+cout << a.substr(0, 3); // 012 (0번째부터 3개)
+
+int b = 127;
+string c = "127";
+char d[10] = "2023";
+printf("%s", c.c_str());
+
+cout << to_string(b); // int → string 변환
+b = stoi(c); // string → int 변환
+b = atoi(d); // char* -> int 변환
+````
+
 ## STL (Standard Template Library)
 
 ### Pair
