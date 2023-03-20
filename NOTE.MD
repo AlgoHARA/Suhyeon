@@ -172,7 +172,13 @@ int main() {
 ````
 
 #### dfs + 재귀 -> 조합 구하기
-[1 2 3]과 [1 3 2]를 같게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
+- [1 2 3]과 [1 3 2]를 같게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))<br>
+- arr의 [0&#126;마지막번째]에서, [start&#126;마지막번째]의 원소를 조합의 cnt+1번째 원소로 넣어보겠다.<br>
+    (start번째 앞의 원소들은 쳐다도 안 보겠다! 이미 고려했으니까..)<br>
+- 순서대로 visited[i]를 true로 표시하고, 원하는 원소 개수의 조합을 찾으면<br>
+    print_combi()에서 visited[]에서 true인 원소만 출력한다.
+
+#### 3개의 원소를 갖는 조합 만들기
 ````C++
 vector<int> arr;
 int visited[MAX];
@@ -187,13 +193,13 @@ void print_combi() {
     cout << endl;
 }
 
-void dfs_combi(int idx, int cnt) {
+void dfs_combi(int start, int cnt) {
     if (cnt == 3) { // 찾으려는 개수
         print_combi();
         return;
     }
     
-    for (int i = idx; i < MAX; i++) {
+    for (int i = start; i < MAX; i++) {
         if (visited[i]) continue;
         visited[i] = true;
         dfs_combi(i, cnt + 1);
@@ -204,6 +210,44 @@ void dfs_combi(int idx, int cnt) {
 int main() {
     dfs_combi(0, 0);
     return 0;
+}
+````
+
+#### n개의 원소 갖는 조합 만들기
+- 관련 문제 : [신맛/쓴맛 조합 문제](https://www.acmicpc.net/problem/2961)
+````C++
+int n = 4; // v의 원소의 개수
+vector<int> v = { 0, 1, 2, 3 };
+bool visited[4] = { false };
+
+void print_combi() {
+	for (int i = 0; i < n; i++) {
+		if (visited[i]) {
+			cout << v[i] << ' ';
+		}
+	}
+	cout << "\n------------------------------------\n";
+	return;
+}
+
+// (cnt+1)개의 원소를 갖는 조합을 만드는데, v[i]를 그 조합의 (cnt+1)번째 원소로 한다.
+void dfs_combi(int start, int cnt) {
+	for (int i = start; i < n; i++) {
+		if (visited[i]) continue;
+		visited[i] = true; // 이로써 (cnt+1)개의 원소를 가진 조합이 생겼다
+		printf("[start = %d, cnt = %d, i = %d]\n", start, cnt, i);
+		print_combi();
+
+		dfs_combi(i, cnt + 1);
+		visited[i] = false; // 조합의 (cnt+1)번째 원소가 v[i]였는데 이를 뺐다
+	}
+
+	return;
+}
+
+int main() {
+	dfs_combi(0, 0);
+	return 0;
 }
 ````
 
