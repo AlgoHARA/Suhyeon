@@ -378,7 +378,7 @@ int dfs(int start) {
 # BFS (Breath-First Search)
 큐를 이용
 
-### 1. 큐 + 인접 리스트
+### 1. 큐 + (graph) adjacency list
 ````C++
 bool visited[9]; // 0~8번 노드가 방문됐는지 표시
 vector<int> graph[9]; // 0~8번 노드가 vector<int>를 가진다, 인접 리스트
