@@ -254,15 +254,14 @@ void print_combi() {
 	return;
 }
 
-// (cnt+1)개의 원소를 갖는 조합을 만드는데, v[i]를 그 조합의 (cnt+1)번째 원소로 한다.
-void dfs_combi(int start, int cnt) {
+void dfs_combi(int start) {
 	for (int i = start; i < n; i++) {
 		if (visited[i]) continue;
 		visited[i] = true; // 이로써 (cnt+1)개의 원소를 가진 조합이 생겼다
-		printf("[start = %d, cnt = %d, i = %d] ", start, cnt, i);
+		printf("[start = %d, i = %d] ", start, i);
 		print_combi();
 
-		dfs_combi(i, cnt + 1);
+		dfs_combi(i);
 		visited[i] = false; // 조합의 (cnt+1)번째 원소가 v[i]였는데 이를 뺐다
 	}
 
@@ -270,26 +269,26 @@ void dfs_combi(int start, int cnt) {
 }
 
 int main() {
-	dfs_combi(0, 0);
+	dfs_combi(0);
 	return 0;
 }
 
 /*
-[start = 0, cnt = 0, i = 0] 0
-[start = 0, cnt = 1, i = 1] 0 1
-[start = 1, cnt = 2, i = 2] 0 1 2
-[start = 2, cnt = 3, i = 3] 0 1 2 3
-[start = 1, cnt = 2, i = 3] 0 1 3
-[start = 0, cnt = 1, i = 2] 0 2
-[start = 2, cnt = 2, i = 3] 0 2 3
-[start = 0, cnt = 1, i = 3] 0 3
-[start = 0, cnt = 0, i = 1] 1
-[start = 1, cnt = 1, i = 2] 1 2
-[start = 2, cnt = 2, i = 3] 1 2 3
-[start = 1, cnt = 1, i = 3] 1 3
-[start = 0, cnt = 0, i = 2] 2
-[start = 2, cnt = 1, i = 3] 2 3
-[start = 0, cnt = 0, i = 3] 3
+[start = 0, i = 0] 0
+[start = 0, i = 1] 0 1
+[start = 1, i = 2] 0 1 2
+[start = 2, i = 3] 0 1 2 3
+[start = 1, i = 3] 0 1 3
+[start = 0, i = 2] 0 2
+[start = 2, i = 3] 0 2 3
+[start = 0, i = 3] 0 3
+[start = 0, i = 1] 1
+[start = 1, i = 2] 1 2
+[start = 2, i = 3] 1 2 3
+[start = 1, i = 3] 1 3
+[start = 0, i = 2] 2
+[start = 2, i = 3] 2 3
+[start = 0, i = 3] 3
 */
 ````
 
