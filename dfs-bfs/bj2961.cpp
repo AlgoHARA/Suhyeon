@@ -1,12 +1,8 @@
 #include <iostream>
 #include <cstdio>
 #include <vector>
-#include <set>
-#include <map>
 #include <string>
 using namespace std;
-
-// 30qns
 
 int n; // 재료의 개수, 1~10
 vector<pair<long long, long long>> v; // <s 신맛, b 쓴맛>
@@ -30,26 +26,17 @@ void print_combi() {
 	if (diff < 0) diff = diff * -1;
 	if (diff < mini) mini = diff;
 
-	//cout << "finish print_combi()\n";
-
 	return;
 }
 
-void dfs_combi(int start, int cnt) {
-
-	// (cnt+1)개의 원소를 갖는 조합을 만드는데
-	// v[i]가 조합의 cnt+1번째 원소로 포함될 예정
+void dfs_combi(int start) {
 	for (int i = start; i < n; i++) {
-		if (visited[i]) continue;
-		visited[i] = true;
-		// (cnt+1)개의 원소를 갖는 조합이 생겼다
-
-		//printf("[start = %d, cnt = %d, i = %d]\n", start, cnt, i);
-		print_combi();
-		dfs_combi(i, cnt + 1);
-
-		visited[i] = false;
-		// cnt+1번째 원소가 v[i]였는데 이를 다시 뺐다
+		if (!visited[i]) {
+			visited[i] = true;
+			print_combi();
+			dfs_combi(i, cnt + 1);
+			visited[i] = false;
+		}
 	}
 
 	return;
