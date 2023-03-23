@@ -34,7 +34,7 @@ void dfs_combi(int start) {
 		if (!visited[i]) {
 			visited[i] = true;
 			print_combi();
-			dfs_combi(i, cnt + 1);
+			dfs_combi(i);
 			visited[i] = false;
 		}
 	}
