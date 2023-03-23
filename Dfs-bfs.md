@@ -66,11 +66,11 @@ int dfs(int y, int x) {
 - [1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
 - [차이] 순열 vs 조합
 	- result 배열
-		- 수열 구할 땐 순서가 중요하니 visited[] 외에<br>
+		- 순열 구할 땐 순서가 중요하니 visited[] 외에<br>
 		원소를 push_back, pop_back할 vector<int> result가 필요하다
 		- 조합 구할 땐 순서가 안 중요하니 visited[]에 t/f 표시하는 것으로 충분
 	- for문에서 i가 0부터 도는지, start부터 도는지
-		- 수열 구할 땐 순서가 중요하니 무조건 0번째 원소부터 고려
+		- 순열 구할 땐 순서가 중요하니 무조건 0번째 원소부터 고려
 		- 조합 구할 땐 중복 생기면 안 되니 start번째 원소부터 고려
 - [차이] 원소 n개 vs 가능한 모든
 	- 원소 n개 : dfs()에 인자로 주어진 cnt가 n에 도달하면 그때마다 결과 출력
