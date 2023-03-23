@@ -64,7 +64,7 @@ int dfs(int y, int x) {
 
 ### 4. dfs + 재귀 → 순열 구하기
 - [1 2 3]과 [1 3 2]를 다르게 취급 ([출처](https://paris-in-the-rain.tistory.com/35))
-- [차이] 수열 vs 조합
+- [차이] 순열 vs 조합
 	- result 배열
 		- 수열 구할 땐 순서가 중요하니 visited[] 외에<br>
 		원소를 push_back, pop_back할 vector<int> result가 필요하다
