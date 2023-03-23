@@ -292,7 +292,7 @@ int main() {
 */
 ````
 
-### 6. 스택 + 인접 리스트
+### 6. 스택 + (graph) adjacency list
 - [전력망을 둘로 나누기](https://school.programmers.co.kr/learn/courses/30/lessons/86971?language=cpp) 풀이<br>
 
 ##### 주석 없는 버전
