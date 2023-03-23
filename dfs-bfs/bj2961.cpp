@@ -58,7 +58,7 @@ int main() {
 	}
 
 	else {
-		dfs_combi(0, 0);
+		dfs_combi(0);
 		cout << mini << '\n';
 	}
 
