@@ -12,7 +12,7 @@
 - 재귀적으로 구현 or 스택 이용
 - BFS처럼 visited[] 배열이 필요하다
 
-### 1. 재귀 + adjacency list
+### 1. 재귀 + (graph) adjacency list
 - input[1] = {2, 3} 이라면 1번 노드가 2번, 3번 노드와 연결돼있단 뜻. input[2]에도 1이 있겠지.
 ````C++
 bool visited[9]; // 0~8번 노드가 방문됐는지 표시
@@ -32,7 +32,7 @@ void dfs(int start) {
 }
 ````
 
-### 2. 재귀 + 2차원 배열 좌표
+### 2. 재귀 + (지도) 2차원 배열 좌표
 - 대각선 기준 대칭인 인접 그래프랑은 다르다
 - [영역 구하기](https://www.acmicpc.net/problem/2583) 문제풀이 참고 ([출처](https://code-kh-studio.tistory.com/27))
 ````C++
@@ -59,7 +59,7 @@ int dfs(int y, int x) {
 }
 ````
 
-### 3. 재귀 + adjacency matrix
+### 3. 재귀 + (graph) adjacency matrix
 - [2-친구](https://www.acmicpc.net/problem/1058)
 
 ### 4. dfs + 재귀 → 순열 구하기
