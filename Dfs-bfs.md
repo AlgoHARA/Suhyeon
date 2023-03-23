@@ -5,7 +5,7 @@
 - [아이템 줍기](https://school.programmers.co.kr/learn/courses/30/lessons/87694?language=cpp)
 
 ### 문제 풀이 idea
-- 붉은 색좌표 2배로 뻥튀기 해서 bfs
+- 좌표 2배로 뻥튀기 해서 bfs
 - 외부 공기 vs 내부 공기 구분, 외부 공기와 n개 이상 맞닿은 곳이 테두리
 
 ## DFS (Depth-First Search)
@@ -48,7 +48,7 @@ int dfs(int y, int x) {
         int ny = y + dy[i];
         int nx = y + dx[i];
         
-        if (ny < 0 || nx < 0 || ny > 99 || nx > 99) continue;
+        if (ny < 0 || nx < 0 || ny >= 100 || nx >= 100) continue;
         if (arr[ny][nx] == 0 || visited[ny][nx]) continue;
         
         visited[ny][nx] = true;
