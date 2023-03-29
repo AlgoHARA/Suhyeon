@@ -214,7 +214,7 @@ void dfs_combi(int start, int cnt) {
 	for (int i = start; i < n; i++) {
 		if (visited[i]) continue;
 		visited[i] = true; // 이로써 (cnt+1)개의 원소를 가진 조합이 생겼다
-		dfs_combi(i, cnt + 1);
+		dfs_combi(i + 1, cnt + 1);
 		visited[i] = false; // 조합의 (cnt+1)번째 원소가 v[i]였는데 이를 뺐다
 	}
 
@@ -261,7 +261,7 @@ void dfs_combi(int start) {
 		printf("[start = %d, i = %d] ", start, i);
 		print_combi();
 
-		dfs_combi(i);
+		dfs_combi(i + 1);
 		visited[i] = false; // 조합의 (cnt+1)번째 원소가 v[i]였는데 이를 뺐다
 	}
 
