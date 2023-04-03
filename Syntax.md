@@ -146,6 +146,16 @@ a.erase(a.begin(), a.begin() + 2); // 1번째 ~ 2번째 원소 제거
 a.find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
 
+#### 2차원 vector 복사
+````C++
+vector<vector<int>> from;
+from.assign(10, vector<int>(11, 0);
+
+vector<vector<int>> to;
+to.assign(from.size(), vector<int>(from[0].size()));
+copy(from.begin(), from.end(), to.begin());
+````
+
 ### Queue
 FIFO<br>
 BFS에 매우 유용
