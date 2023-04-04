@@ -156,6 +156,13 @@ to.assign(from.size(), vector<int>(from[0].size()));
 copy(from.begin(), from.end(), to.begin());
 ````
 
+#### 2차원 배열 복사
+````C++
+int from[n][m];
+int to[n][m];
+copy(&from[0][0], &from[0][0] + n * m, &to[0][0]);
+````
+
 ### Queue
 FIFO<br>
 BFS에 매우 유용
@@ -221,6 +228,8 @@ m.find(k); // key값이 k인 원소를 가리키는 iterator를 반환
 m.size(); // map의 원소 개수
 m.empty(); // map이 비어있는가
 m['a'] = 1;
+
+if (m.find(k) != m.end()) {} // 'm 안에 k라는 key가 존재하면'
 ```
 
 ### Priority queue
