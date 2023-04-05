@@ -72,7 +72,19 @@ cout.tie(NULL);
 #include <cstring>
 
 bool visited[10];
-memset(visited, false, sizeof(visited));
+memset(visited, false, sizeof(visited)); // memset()은 0으로만 초기화 가능
+
+// 0이 아닌 다른 값으로 초기화하고 싶다
+int arr[2][3];
+fill(&arr[0][0], &arr[1][2], 5); // (첫 위치, 어느 인덱스까지, 초기값)
+````
+
+## 메모리 복사
+````C++
+vector<int> from;
+vector<int> to;
+
+copy(from.begin(), from.end(), to.begin());
 ````
 
 ## 문자열 가지고 놀기
@@ -143,7 +155,7 @@ a.reverse(a.begin(), a.end()); // → string도 reverse가 된다
 
 a.erase(a.begin() + 2); // 2번째 원소 제거, 인자 = iterator
 a.erase(a.begin(), a.begin() + 2); // 1번째 ~ 2번째 원소 제거
-a.find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
+find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
 
 #### 2차원 vector 복사
