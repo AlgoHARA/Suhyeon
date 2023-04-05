@@ -153,8 +153,9 @@ a.clear(); // 비우기
 a.swap(b); // 0으로 초기화된 b와 a를 교체
 a.reverse(a.begin(), a.end()); // → string도 reverse가 된다
 
-a.erase(a.begin() + 2); // 2번째 원소 제거, 인자 = iterator
-a.erase(a.begin(), a.begin() + 2); // 1번째 ~ 2번째 원소 제거
+a.erase(a.begin() + 2); // a[2]를 지운다, 인자 iterator
+a.erase(a.begin(), a.begin() + 2); // [first,last) 제거, last에 다음에 있던 원소를 가리키는 iterator 반환
+
 find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
 
