@@ -247,16 +247,17 @@ if (m.find(k) != m.end()) {} // 'm 안에 k라는 key가 존재하면'
 
 ### Priority queue
 - 선언 format : priority_queue<자료형, 컨테이너, 우선순위> 변수명
-  - 컨테이너: default 컨테이너는 vector
-  - 우선순위: default 우선순위는 less<자료형> -> max heap(우선순위순내림차순)
-- priority_queue<int> q; // 자료형은 정수, 우선순위를 내림차순 정렬(가장 큰 정수가 top에 위치)
-- priority_queue<int, deque<int>> q; // 자료형은 정수, 컨테이너는 덱
-
+- 컨테이너 : 디폴트 컨테이너는 vector
+- 우선순위 : 디폴트 우선순위는 less<자료형> → max heap(우선순위 내림차순 정렬)
+- sort에서 less<> 쓰면 오름차순, greater<> 쓰면 내림차순 정렬인데, pq에선 반대군!
 ```C++
 #include <queue>
 
-priority_queue<int, vector<int>, less<int>> q; // 우선순위를 내림차순 정렬 (최대 힙)
-priority_queue<int, vector<int>, greater<int>> pq; // 우선순위를 오름차순 정렬 (최소 힙)
+priority_queue<int, vector<int>, less<int>> pq_d; // 우선순위 내림차순 정렬 (최대 힙 - 최대값이 최상단에 위치)
+priority_queue<int, vector<int>, greater<int>> pq_u; // 우선순위 오름차순 정렬 (최소 힙)
+  
+priority_queue<int> pq_v; // 자료형은 정수, 우선순위 내림차순 정렬
+priority_queue<int, deque<int>> pq_d; // 자료형은 정수, 컨테이너는 덱
 
 q.push(); // q에 원소를 추가
 q.pop(); // q에서 우선순위가 가장 높은 원소를 제거 -> 두 번째로 큰 정수가 top에 위치하게 됨
