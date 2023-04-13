@@ -247,8 +247,8 @@ if (m.find(k) != m.end()) {} // 'm 안에 k라는 key가 존재하면'
 
 ### Priority queue
 - 선언 format : priority_queue<자료형, 컨테이너, 우선순위> 변수명
-  - 컨테이너: 생략 시 default 컨테이너는 vector
-  - 우선순위: 생략 시 default 우선순위는 less<자료형>  
+  - 컨테이너: default 컨테이너는 vector
+  - 우선순위: default 우선순위는 less<자료형> -> max heap(우선순위순내림차순)
 - priority_queue<int> q; // 자료형은 정수, 우선순위를 내림차순 정렬(가장 큰 정수가 top에 위치)
 - priority_queue<int, deque<int>> q; // 자료형은 정수, 컨테이너는 덱
 
@@ -263,6 +263,21 @@ q.pop(); // q에서 우선순위가 가장 높은 원소를 제거 -> 두 번째
 q.top(); // q에서 우선순위가 가장 높은 원소
 q.size(); // q의 원소 개수
 q.empty(); // q 비어있는가(T/F)
+```
+#### 우선순위를 customize
+```C++
+#include <queue>
+  
+struct compare {
+  bool operator() (pair<int, int>& a, pair<int, int>& b) {
+    return a.second > b.second;
+  }
+}
+
+// 1번째 값 기준, 오름차순 정렬
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq_1;
+// 2번째 값 기준, 오름차순 정렬
+priority_queue<pair<int, int>, vector<pair<int, int>>, compare> pq_2;
 ```
 
 ## algorithm header
