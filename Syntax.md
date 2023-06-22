@@ -1,33 +1,9 @@
-[C++ 기초 문법](#c--------)
-1. [자료형](#---)
-    + [정수형](#---)
-    + [부호 있는 정수](#--------)
-    + [부호 없는 정수](#--------)
-    + [실수](#--)
-2. [입출력](#---)
-  * [메모리 초기화](#-------)
-  * [메모리 복사](#------)
-  * [문자열 가지고 놀기](#----------)
-  * [STL (Standard Template Library)](#stl--standard-template-library-)
-    + [Pair](#pair)
-    + [Vector](#vector)
-      - [2차원 vector 복사](#2---vector---)
-      - [2차원 배열 복사](#2--------)
-    + [Queue](#queue)
-    + [Stack](#stack)
-    + [Set](#set)
-    + [Map](#map)
-    + [Priority queue](#priority-queue)
-      - [우선순위를 customize](#------customize)
-  * [algorithm header](#algorithm-header)
-    + [최소값 min](#----min)
-    + [최대값 max](#----max)
-    + [정렬 sort](#---sort)
-    + [순열 permutation](#---permutation)
-    + [이분 탐색 binary_search](#------binary-search)
-    + [중복 원소 찾기 unique](#---------unique)
-
 # C++ 기초 문법
+
+## 목차
+1. [자료형](#자료형)
+2. [입출력](#입출력)
+---
 
 ## 자료형
 
