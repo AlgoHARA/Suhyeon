@@ -4,7 +4,7 @@
 1. [메모리 초기화](#1-메모리-초기화)
 2. [메모리 복사](#2-메모리-복사)
 3. [정수와 문자열](#3-정수와-문자열)
-4. [STL](4-stl-standard-template-library)
+4. [STL](#4-stl-standard-template-library)
 5. [자료형](#5-자료형)
 6. [입출력](#6-입출력)
 ---
