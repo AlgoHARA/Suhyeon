@@ -9,7 +9,7 @@
 6. [STL](#6.-STL-(Standard-Template-Library))
 ---
 
-## 1장. 자료형
+## 1. 자료형
 
 ### 정수형
 ```C++
