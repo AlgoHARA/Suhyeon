@@ -2,7 +2,7 @@
 
 ## 목차
 1. [(1D or 2D) 배열/벡터 메모리 관리](#1-메모리-초기화)
-<br> 1-1. [초기화/memset/fill]() / 1-2. [복사/copy]()
+<br> 1-1. [초기화/memset/fill](#1-1-메모리-초기화) / 1-2. [복사/copy](#1-2-메모리-복사)
 2. [정수와 문자열](#2-정수와-문자열)
 3. [STL (Standard Template Library)](#3-stl-standard-template-library)
 <br> 3-1. [Pair](#3-1-pair) / 3-2. [Vector](#3-2-vector) / 3-3. [Queue](#3-3-queue) / 3-4. [Stack](#3-4-stack)
