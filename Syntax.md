@@ -39,19 +39,13 @@ vector<vector<int>> v(5, vector<int>(4, 3)); // 5행 4열, 값 3으로 초기화
 fill(v.begin(), v.end(), vector<int>(v[0].size(), 6)); // 5행 4열, 값 6으로 초기화됨
 ````
 
-***
-
 ### 1-2. 메모리 복사
 ````C++
 #include <algorithm>
 
 // 2차원 벡터
-vector<vector<int>> from;
-from.assign(10, vector<int>(11, 0));
-
-vector<vector<int>> to;
-to.assign(from.size(), vector<int>(from[0].size()));
-
+vector<vector<int>> from(10, vector<int>(11, 5)); // 10행 11열, 값 5로 초기화됨
+vector<vector<int>> to(from.size(), vector<int>(from[0].size(), 7)); // 10행 11열, 값 7로 초기화됨
 copy(from.begin(), from.end(), to.begin());
 
 // 2차원 배열
@@ -73,8 +67,8 @@ cout << a.substr(0, 3); // 012 (0번째부터 3개)
 int b = 127;
 string c = "127";
 char d[10] = "2023";
-printf("%s", c.c_str()); // string을 printf() + %s 로 출력하려면 .c_str()을 붙여줘야 한다
 
+printf("%s", c.c_str()); // string을 printf() + %s 로 출력하려면 .c_str()을 붙여줘야 한다
 to_string(b); // int → string 변환
 stoi(c); // string → int 변환
 atoi(d); // char* -> int 변환
@@ -95,17 +89,11 @@ utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함�
 #include <vector>
 using namespace std;
 
-int main(int argc, const char* argv[]) {
-  pair<int, char> p;
-  
-  scanf("%d %c", &p.first, &p.second);
-  
-  p.first = 1;
-  p.second = 'a';
-  
-  p = make_pair(3, 'b'); // p가 <3, b>로 바뀐다
-  return 0;
-}
+pair<int, char> p;
+scanf("%d %c", &p.first, &p.second);
+p.first = 1; p.second = 'a';
+p = make_pair(3, 'b'); // p가 <3, b>로 바뀐다
+
 ```
 
 ### 3-2. Vector
@@ -120,6 +108,10 @@ vector<int> a = {1, 2, 3};
 vector<int> b(10); // 기본값(0)으로 초기화된 원소 10개의 vector 생성
 vector<int> c(5, 2); // 2로 초기화된 원소 5개의 vector 생성
 vector<int> d(a); // a를 복사한 vector d 생성 (deep copy)
+
+vector<vector<int>> e;
+e.assign(3, vector<int>(5, 4)); // 3행 5열, 값 4로 초기화됨
+
 vector<int>::iterator it;
 
 // 삽입 연산
