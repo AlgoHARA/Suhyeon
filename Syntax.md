@@ -85,9 +85,7 @@ utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함�
 
 ```C++
 #include <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
-#include <iostream>
 #include <vector>
-using namespace std;
 
 pair<int, char> p;
 scanf("%d %c", &p.first, &p.second);
