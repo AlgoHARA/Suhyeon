@@ -1,42 +1,68 @@
 # C++ 기초 문법
 
 ## 목차
-1. [메모리 초기화](#1-메모리-초기화)
-2. [메모리 복사](#2-메모리-복사)
-3. [정수와 문자열](#3-정수와-문자열)
-4. [STL (Standard Template Library)](#4-stl-standard-template-library)
-<br> 4-1. [Pair](#4-1-pair) / 4-2. [Vector](#4-2-vector) / 4-3. [Queue](#4-3-queue) / 4-4. [Stack](#4-4-stack)
-<br> 4-5. [Set](#4-5-set) / 4-6. [Map](#4-6-map) / 4-7. [Priority Queue](#4-7-priority-queue)
-6. [Algorithm Header](#5-algorithm-header)
-7. [자료형](#6-자료형)
-8. [입출력](#7-입출력)
+1. [(1D or 2D) 배열/벡터 메모리 관리](#1-메모리-초기화)
+<br> 1-1. [초기화/memset/fill]() / 1-2. [복사/copy]()
+2. [정수와 문자열](#2-정수와-문자열)
+3. [STL (Standard Template Library)](#3-stl-standard-template-library)
+<br> 3-1. [Pair](#3-1-pair) / 3-2. [Vector](#3-2-vector) / 3-3. [Queue](#3-3-queue) / 3-4. [Stack](#3-4-stack)
+<br> 3-5. [Set](#3-5-set) / 3-6. [Map](#3-6-map) / 3-7. [Priority Queue](#3-7-priority-queue)
+4. [Algorithm Header](#4-algorithm-header)
+5. [자료형](#5-자료형)
+6. [입출력](#6-입출력)
 ---
 
-## 1. 메모리 초기화
+## 1. (1D or 2D) 배열/벡터 메모리 관리
+
+### 1-1. 메모리 초기화
+
+#### memset 사용
+memset()은 0으로만 초기화 가능
 ````C++
 #include <cstring>
 
 bool visited[10];
-memset(visited, false, sizeof(visited)); // memset()은 0으로만 초기화 가능
+memset(visited, false, sizeof(visited));
+````
 
-// 0이 아닌 다른 값으로 초기화하고 싶다면?
+#### fill 사용
+0이 아닌 다른 값으로 초기화하고 싶다면
+````C++
+#include <algorithm>
+
+// 2차원 배열
 int arr[2][3];
 fill(&arr[0][0], &arr[1][2], 5); // (첫 위치, 어느 인덱스까지, 초기값)
+
+// 2차원 벡터
+vector<vector<int>> v(5, vector<int>(4, 3)); // 5행 4열, 값 3으로 초기화됨
+fill(v.begin(), v.end(), vector<int>(v[0].size(), 6)); // 5행 4열, 값 6으로 초기화됨
 ````
 
 ***
 
-## 2. 메모리 복사
+### 1-2. 메모리 복사
 ````C++
-vector<int> from;
-vector<int> to;
+#include <algorithm>
+
+// 2차원 벡터
+vector<vector<int>> from;
+from.assign(10, vector<int>(11, 0));
+
+vector<vector<int>> to;
+to.assign(from.size(), vector<int>(from[0].size()));
 
 copy(from.begin(), from.end(), to.begin());
+
+// 2차원 배열
+int from[n][m];
+int to[n][m];
+copy(&from[0][0], &from[0][0] + n * m, &to[0][0]);
 ````
 
 ***
 
-## 3. 정수와 문자열
+## 2. 정수와 문자열
 ````C++
 #include <string>
 
@@ -58,9 +84,9 @@ d[0] - '0'; // char → int 변환 : char를 int로 바꾸려면 '0'을 빼준�
 
 ***
 
-## 4. STL (Standard Template Library)
+## 3. STL (Standard Template Library)
 
-### 4-1. Pair
+### 3-1. Pair
 utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함돼서 utility는 include 안 해도 된다.
 
 ```C++
@@ -82,7 +108,7 @@ int main(int argc, const char* argv[]) {
 }
 ```
 
-### 4-2. Vector
+### 3-2. Vector
 크기가 가변적인 배열<br>
 C의 array는 크기가 정적이라 크기 변경 불가<br>
 
@@ -93,7 +119,7 @@ C의 array는 크기가 정적이라 크기 변경 불가<br>
 vector<int> a = {1, 2, 3};
 vector<int> b(10); // 기본값(0)으로 초기화된 원소 10개의 vector 생성
 vector<int> c(5, 2); // 2로 초기화된 원소 5개의 vector 생성
-vector<int> d(a); // a를 복사한(얕은 복사) vector d 생성
+vector<int> d(a); // a를 복사한 vector d 생성 (deep copy)
 vector<int>::iterator it;
 
 // 삽입 연산
@@ -121,24 +147,7 @@ a.reverse(a.begin(), a.end()); // 참고: string도 reverse가 된다
 find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
 
-#### 2차원 vector 복사
-````C++
-vector<vector<int>> from;
-from.assign(10, vector<int>(11, 0);
-
-vector<vector<int>> to;
-to.assign(from.size(), vector<int>(from[0].size()));
-copy(from.begin(), from.end(), to.begin());
-````
-
-#### 2차원 배열 복사
-````C++
-int from[n][m];
-int to[n][m];
-copy(&from[0][0], &from[0][0] + n * m, &to[0][0]);
-````
-
-### 4-3. Queue
+### 3-3. Queue
 FIFO<br>
 BFS에 매우 유용
 
@@ -154,7 +163,7 @@ q.size(); // 큐의 크기
 q.empty(); // 큐가 비어있는가(T/F)
 ```
 
-### 4-4. Stack
+### 3-4. Stack
 LIFO
 
 ```C++
@@ -168,7 +177,7 @@ s.size(); // 스택의 크기
 s.empty(); // 스택이 비어있는가(T/F)
 ```
 
-### 4-5. Set
+### 3-5. Set
 - associative container
 - key라 불리는 원소들의 집합
 - key값은 중복 허용 X
@@ -185,7 +194,7 @@ s.size(); // set의 원소의 개수
 s.empty(); // set이 비어있는가
 ```
 
-### 4-6. Map
+### 3-6. Map
 - associative container
 - <key, value> 쌍을 원소로 저장
 - key값 중복 허용 x
@@ -207,7 +216,7 @@ m['a'] = 1;
 if (m.find(k) != m.end()) {} // 'm 안에 k라는 key가 존재하면'
 ```
 
-### 4-7. Priority Queue
+### 3-7. Priority Queue
 - 선언 format : priority_queue<자료형, 컨테이너, 우선순위> 변수명
 - 컨테이너 : 디폴트 컨테이너는 vector
 - 우선순위 : 디폴트 우선순위는 less<자료형> → max heap(우선순위 내림차순 정렬)
@@ -244,7 +253,7 @@ priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> 
 priority_queue<pair<int, int>, vector<pair<int, int>>, compare> pq_2;
 ```
 
-## 5. Algorithm Header
+## 4. Algorithm Header
 정렬/순열 등을 사용할 때, vector container과 함께 사용되는 경우가 많다
 
 ### 최소값 min
@@ -317,7 +326,7 @@ v.erase(unique(v.begin(), v.end()), v.end());
 - unique()는 vector에서 쓰레기값의 첫 번째 인덱스를 반환
 - 따라서 반드시 sort()로 정렬 후 unique()를 사용해야 한다
 
-## 6. 자료형
+## 5. 자료형
 
 ### 정수형
 ```C++
@@ -361,7 +370,7 @@ f = 1.23456f; // f가 붙어야 float로 인식
 
 ***
 
-## 7. 입출력
+## 6. 입출력
 1) 동기화를 끊는다면 C++ stream은 C stream과는 다른 독립적인 버퍼를 갖게 된다.  
 그래서 출력 순서가 보장되지 않아서, C와 C++의 입출력 방식 혼용하여 쓰는 것이 위험하다.  
 2) untie시, cin으로 입력 받기 전 뭔가를 띄우고 싶다면, 매번 수동적으로 cout을 flush 시켜줘야 한다.  
