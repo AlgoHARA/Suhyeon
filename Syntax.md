@@ -1,94 +1,29 @@
 # C++ 기초 문법
 
 ## 목차
-1. [자료형](#1-자료형)
-2. [입출력](#2-입출력)
-3. [메모리 초기화](#3-메모리-초기화)
-4. [메모리 복사](#4-메모리-복사)
-5. [정수 ↔️ 문자 변환](#5-정수-%EF%B8%8F-문자-변환)
-6. [STL](#6-STL-(Standard-Template-Library))
+1. [메모리 초기화](#1-메모리-초기화)
+2. [메모리 복사](#2-메모리-복사)
+3. [정수와 문자열열](#3-정수와-문자열)
+4. [STL](#4-STL-(Standard-Template-Library))
+5. [자료형](#5-자료형)
+6. [입출력](#6-입출력)
 ---
 
-## 1. 자료형
-
-### 정수형
-```C++
-char c;
-short int si;      // valid
-short s;           // preferred
-int i;
-long int li;       // valid
-long l;            // preferred
-long long int lli; // valid
-long long ll;      // preferred
-```
-
-### 부호 있는 정수
-- signed : 음수&양수 모두 저장 가능
-```C++
-signed char c;
-signed short s;
-signed int i;
-signed long l;
-signed long long ll;
-```
-
-### 부호 없는 정수
-- unsigned : 양수만 저장 가능
-```C++
-unsigned char c;
-unsigned short s;
-unsigned int i;
-unsigned long l;
-unsigned long long ll;
-```
-
-### 실수
-```C++
-float f;
-double d;
-long double ld;
-f = 1.23456f; // f가 붙어야 float로 인식
-```
-
-***
-
-## 2. 입출력
-1) 동기화를 끊는다면 C++ stream은 C stream과는 다른 독립적인 버퍼를 갖게 된다.  
-그래서 출력 순서가 보장되지 않아서, C와 C++의 입출력 방식 혼용하여 쓰는 것이 위험하다.  
-2) untie시, cin으로 입력 받기 전 뭔가를 띄우고 싶다면, 매번 수동적으로 cout을 flush 시켜줘야 한다.  
-```C++
-#include <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
-#include <iostream>
-using namespace std;
-
-scanf();
-printf();
-cin >> temp;
-cout << "Hello" << temp << "\n";
-
-ios::sync_with_stdio(false); // 1
-cin.tie(NULL); // 2
-cout.tie(NULL);
-```
-
-***
-
-## 3. 메모리 초기화
+## 1. 메모리 초기화
 ````C++
 #include <cstring>
 
 bool visited[10];
 memset(visited, false, sizeof(visited)); // memset()은 0으로만 초기화 가능
 
-// 0이 아닌 다른 값으로 초기화하고 싶다
+// 0이 아닌 다른 값으로 초기화하고 싶다면?
 int arr[2][3];
 fill(&arr[0][0], &arr[1][2], 5); // (첫 위치, 어느 인덱스까지, 초기값)
 ````
 
 ***
 
-## 4. 메모리 복사
+## 2. 메모리 복사
 ````C++
 vector<int> from;
 vector<int> to;
@@ -98,7 +33,7 @@ copy(from.begin(), from.end(), to.begin());
 
 ***
 
-## 5. 정수 ↔️ 문자 변환
+## 3. 정수와 문자열
 ````C++
 #include <string>
 
@@ -109,16 +44,18 @@ cout << a.substr(0, 3); // 012 (0번째부터 3개)
 int b = 127;
 string c = "127";
 char d[10] = "2023";
-printf("%s", c.c_str());
+printf("%s", c.c_str()); // string을 printf() + %s 로 출력하려면 .c_str()을 붙여줘야 한다
 
-cout << to_string(b); // int → string 변환
-b = stoi(c); // string → int 변환
-b = atoi(d); // char* -> int 변환
+to_string(b); // int → string 변환
+stoi(c); // string → int 변환
+atoi(d); // char* -> int 변환
+d[0] + '0'; // int → char 변환 : int를 char로 바꾸려면 '0'을 더한다
+d[0] - '0'; // char → int 변환 : char를 int로 바꾸려면 '0'을 빼준다
 ````
 
 ***
 
-## 6. STL (Standard Template Library)
+## 4. STL (Standard Template Library)
 
 ### Pair
 utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함돼서 utility는 include 안 해도 된다.
@@ -367,3 +304,68 @@ v.erase(unique(v.begin(), v.end()), v.end());
 - unique()는 연속된 중복 원소를 vector의 제일 뒷부분으로, 쓰레기값으로 보내버린다.
 - unique()는 vector에서 쓰레기값의 첫 번째 인덱스를 반환
 - 따라서 반드시 sort()로 정렬 후 unique()를 사용해야 한다
+
+## 5. 자료형
+
+### 정수형
+```C++
+char c;
+short int si;      // valid
+short s;           // preferred
+int i;
+long int li;       // valid
+long l;            // preferred
+long long int lli; // valid
+long long ll;      // preferred
+```
+
+### 부호 있는 정수
+- signed : 음수&양수 모두 저장 가능
+```C++
+signed char c;
+signed short s;
+signed int i;
+signed long l;
+signed long long ll;
+```
+
+### 부호 없는 정수
+- unsigned : 양수만 저장 가능
+```C++
+unsigned char c;
+unsigned short s;
+unsigned int i;
+unsigned long l;
+unsigned long long ll;
+```
+
+### 실수
+```C++
+float f;
+double d;
+long double ld;
+f = 1.23456f; // f가 붙어야 float로 인식
+```
+
+***
+
+## 6. 입출력
+1) 동기화를 끊는다면 C++ stream은 C stream과는 다른 독립적인 버퍼를 갖게 된다.  
+그래서 출력 순서가 보장되지 않아서, C와 C++의 입출력 방식 혼용하여 쓰는 것이 위험하다.  
+2) untie시, cin으로 입력 받기 전 뭔가를 띄우고 싶다면, 매번 수동적으로 cout을 flush 시켜줘야 한다.  
+```C++
+#include <stdio.h> // 또는 <cstdio>, scanf()/printf() 사용 위해
+#include <iostream>
+using namespace std;
+
+scanf();
+printf();
+cin >> temp;
+cout << "Hello" << temp << "\n";
+
+ios::sync_with_stdio(false); // 1
+cin.tie(NULL); // 2
+cout.tie(NULL);
+```
+
+***
