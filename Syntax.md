@@ -1,8 +1,12 @@
 # C++ 기초 문법
 
 ## 목차
-1. [자료형](#1장.-자료형)
-2. [입출력](#입출력)
+1. [자료형](#1.-자료형)
+2. [입출력](#2.-입출력)
+3. [메모리 초기화](#3.-메모리-초기화)
+4. [메모리 복사](#4.-메모리-복사)
+5. [정수 ↔️ 문자 변환](#5.-정수-↔️-문자-변환)
+6. [STL](#6.-STL-(Standard-Template-Library))
 ---
 
 ## 1장. 자료형
@@ -49,7 +53,7 @@ f = 1.23456f; // f가 붙어야 float로 인식
 
 ***
 
-## 입출력
+## 2. 입출력
 1) 동기화를 끊는다면 C++ stream은 C stream과는 다른 독립적인 버퍼를 갖게 된다.  
 그래서 출력 순서가 보장되지 않아서, C와 C++의 입출력 방식 혼용하여 쓰는 것이 위험하다.  
 2) untie시, cin으로 입력 받기 전 뭔가를 띄우고 싶다면, 매번 수동적으로 cout을 flush 시켜줘야 한다.  
@@ -70,7 +74,7 @@ cout.tie(NULL);
 
 ***
 
-## 메모리 초기화
+## 3. 메모리 초기화
 ````C++
 #include <cstring>
 
@@ -84,7 +88,7 @@ fill(&arr[0][0], &arr[1][2], 5); // (첫 위치, 어느 인덱스까지, 초기�
 
 ***
 
-## 메모리 복사
+## 4. 메모리 복사
 ````C++
 vector<int> from;
 vector<int> to;
@@ -94,7 +98,7 @@ copy(from.begin(), from.end(), to.begin());
 
 ***
 
-## 문자열 가지고 놀기
+## 5. 정수 ↔️ 문자 변환
 ````C++
 #include <string>
 
@@ -114,7 +118,7 @@ b = atoi(d); // char* -> int 변환
 
 ***
 
-## STL (Standard Template Library)
+## 6. STL (Standard Template Library)
 
 ### Pair
 utility 헤더에서 제공하는데, vector/algorithm 헤더 파일에 포함돼서 utility는 include 안 해도 된다.
