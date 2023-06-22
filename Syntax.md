@@ -89,25 +89,34 @@ C의 array는 크기가 정적이라 크기 변경 불가<br>
 ```C++
 #include <vector>
 
+// 초기화, 선언
 vector<int> a = {1, 2, 3};
 vector<int> b(10); // 기본값(0)으로 초기화된 원소 10개의 vector 생성
 vector<int> c(5, 2); // 2로 초기화된 원소 5개의 vector 생성
 vector<int> d(a); // a를 복사한(얕은 복사) vector d 생성
 vector<int>::iterator it;
 
+// 삽입 연산
+a.push_back(1); // 마지막에 1 추가
+a.insert(a.begin(), 1); // 맨 앞에 1 삽입
+a.insert(a.begin() + 2, 1); // idx 2 위치에 1 삽입
+
+// 삭제 연산
+a.pop_back(); // 마지막에서 데이터 제거
+a.erase(a.begin() + 2); // a[2]를 지운다 (인자: iterator)
+a.erase(a.begin(), a.begin() + 2); // [first,last) 제거, last에 있던 원소를 가리키는 iterator 반환
+a.clear(); // 모든 값 삭제
+
+// 정보 가져오기
+a.size(); // 원소의 개수
 a.front(); // 첫 번째 원소
 a.back(); // 마지막 원소
 it = a.begin(); // 첫번째 위치 (반환: iterator)
 it = a.end(); // 마지막의 다음 위치 (반환: iterator)
-a.push_back(); // 마지막에 데이터 추가
-a.pop_back(); // 마지막에서 데이터 제거
-a.size(); // 원소의 개수
-a.clear(); // 비우기
-a.swap(b); // 0으로 초기화된 b와 a를 교체
-a.reverse(a.begin(), a.end()); // → string도 reverse가 된다
 
-a.erase(a.begin() + 2); // a[2]를 지운다, 인자 iterator
-a.erase(a.begin(), a.begin() + 2); // [first,last) 제거, last에 다음에 있던 원소를 가리키는 iterator 반환
+// 값 변경
+a.swap(b); // vector b(위에서 0으로 초기화됐음)와 a를 교체
+a.reverse(a.begin(), a.end()); // 참고: string도 reverse가 된다
 
 find(a.begin(), a.end(), 2); // a 내에 2가 존재하는지 탐색, iterator 반환(값 못 찾으면 end iterator 반환)
 ```
