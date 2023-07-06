@@ -189,11 +189,15 @@ s.empty(); // set이 비어있는가
 - <key, value> 쌍을 원소로 저장
 - key값 중복 허용 x
 - [] 연산자가 제공되어 key에 해당하는 원소의 value에 바로 접근 가능
+- 기본적으로 key 기준 오름차순 정렬
 
 ```C++
 #include <map>
+#include <algorithm>
 
 map<char, int> m;
+map<int, int, greater<int>> ascend_m; // 내림차순 정렬
+
 m.insert(make_pair('a', 1)); // key와 value의 pair로 원소를 삽입
 m.erase(k); // key값이 k인 원소를 삭제
 m.begin(); // 첫 번째 원소를 가리키는 iterator를 반환
@@ -204,6 +208,13 @@ m.empty(); // map이 비어있는가
 m['a'] = 1;
 
 if (m.find(k) != m.end()) {} // 'm 안에 k라는 key가 존재하면'
+
+// map을 value 기준 오름차순 정렬 : vector로 옮겨서 정렬해야 한다
+static bool comp(pair<char, int>& a, pair<char, int>& b) {
+  return a.second < b.second;
+}
+vector<pair<char, int>> v(m.begin(), m.end());
+sort(v.begin(), v.end(), comp);
 ```
 
 ### 3-7. Priority Queue
